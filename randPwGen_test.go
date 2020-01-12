@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-const passwords_to_generate = 1400000
+const passwords_to_generate = 3000000
 const password_length = 12
 
 /*

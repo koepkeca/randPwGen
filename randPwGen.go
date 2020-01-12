@@ -7,6 +7,7 @@ import (
 	"io"
 	"log"
 	prand "math/rand"
+	"strings"
 
 	"github.com/koepkeca/goSafeDataStruct/safeTrie"
 )
@@ -103,11 +104,18 @@ func (p PwHive) Generate() {
 	return
 }
 
+
 //genPass is a utility function that creates a random list of p.PwLen characters from char_pool.
 func (p PwHive) genPass() (pw string) {
+	buf := new(strings.Builder)
 	for i := 0; i < p.PwLen; i++ {
-		pw = fmt.Sprintf("%s%s", pw, char_pool[p.RandSrc.Intn(len(char_pool))])
+		_, e := buf.WriteString(char_pool[p.RandSrc.Intn(len(char_pool))])
+		if e != nil {
+			log.Printf("genPassNew: %s", e)
+			continue
+		}
 	}
+	pw = buf.String()
 	return
 }
 
